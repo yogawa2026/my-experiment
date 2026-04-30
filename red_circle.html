@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>jsPsych Red Circle Task</title>
+  <!-- jsPsych core and plugins from CDN -->
+  <script src="https://unpkg.com/jspsych@7.3.4"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+  <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <style>
+    /* 1. 背景色を灰色に設定 */
+    body {
+      background-color: #808080;
+      color: white; /* テキストの視認性を確保 */
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 2. 直径100pxの赤い円のスタイル */
+    .red-circle {
+      width: 100px;
+      height: 100px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    /* jsPsychのコンテナを画面いっぱいに広げる */
+    .jspsych-content-wrapper {
+      background-color: #808080 !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="jspsych-target"></div>
+</body>
+<script>
+  /**
+   * jsPsych (v7) 実験スクリプト
+   */
+
+  // jsPsychの初期化
+  const jsPsych = initJsPsych({
+    display_element: 'jspsych-target'
+  });
+
+  // タイムラインの配列
+  const timeline = [];
+
+  // 円を表示する試行
+  const circle_trial = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div class="red-circle"></div>',
+    choices: [' '], // 3. スペースキーが押されるまで表示
+    prompt: '<p style="margin-top: 20px;">スペースキーを押して終了してください</p>',
+    data: {
+      trial_name: 'red_circle_display'
+    }
+  };
+  timeline.push(circle_trial);
+
+  // 4. 終了メッセージの表示
+  const end_message = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<h1>実験が終了しました。</h1><p>ご協力ありがとうございました。</p>',
+    choices: "NO_KEYS", // キー入力を受け付けない
+    trial_duration: 3000 // 3秒後に自動終了
+  };
+  timeline.push(end_message);
+
+  // 実験の実行
+  jsPsych.run(timeline);
+</script>
+</html>
