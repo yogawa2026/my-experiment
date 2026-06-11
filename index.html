@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尚絅学院大学 2412A16 小川 悠人の心理学実験室</title>
+    <!-- Google Fonts の読み込み（美しく読みやすいフォント） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* デザインシステム・変数の定義（温かみのあるミントグリーン） */
+        :root {
+            --primary: #5cb89a;       /* メインのミントグリーン */
+            --primary-light: #eef8f5; /* 背景用の超極薄ミント */
+            --primary-hover: #4aa385; /* ホバー時の濃いミント */
+            --text-main: #2c3e35;     /* 文字色（黒ではなく深みのある緑系グレー） */
+            --text-sub: #5a6f66;      /* 補足文字色 */
+            --bg-grad-start: #f4faf8; /* 全体背景グラデーション開始 */
+            --bg-grad-end: #eaf5f1;   /* 全体背景グラデーション終了 */
+            --white: #ffffff;
+        }
+
+        /* リセット CSS & 基本設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-main);
+            background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* コンテナの幅制限 */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ヘッダーエリア */
+        header {
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        .header-logo {
+            font-family: 'Kiwi Maru', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--primary-hover);
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            position: relative;
+            display: inline-block;
+            line-height: 1.4;
+        }
+
+        /* 装飾用の下線 */
+        .header-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        /* 挨拶文・ウェルカムカード */
+        .welcome-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(92, 184, 154, 0.08);
+            margin-bottom: 50px;
+            border: 1px solid rgba(92, 184, 154, 0.15);
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto;
+            word-wrap: break-word;
+        }
+
+        /* 実験リストのグリッド配置（レスポンシブ） */
+        .experiment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* 実験カード */
+        .card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 8px 24px rgba(92, 184, 154, 0.06);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                        box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        border-color 0.3s ease;
+            border: 1px solid rgba(92, 184, 154, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* カードのホバーアニメーション */
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 36px rgba(92, 184, 154, 0.15);
+            border-color: rgba(92, 184, 154, 0.35);
+        }
+
+        /* カード上部のタグ装飾 */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-number {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            background-color: var(--primary-light);
+            padding: 4px 12px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        /* アクションボタン */
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 20px;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 12px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 12px rgba(92, 184, 154, 0.2);
+        }
+
+        .card-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .card-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* フッター */
+        footer {
+            margin-top: auto;
+            padding: 40px 0;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(92, 184, 154, 0.1);
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        /* モバイル端末向けの細かな調整 */
+        @media (max-width: 600px) {
+            header {
+                padding: 40px 0 25px 0;
+            }
+
+            .header-logo {
+                font-size: 1.5rem;
+            }
+
+            .welcome-section {
+                padding: 24px 16px;
+                margin-bottom: 30px;
+                border-radius: 16px;
+            }
+
+            .welcome-text {
+                font-size: 0.95rem;
+                text-align: left; /* スマホでは左寄せのほうが読みやすい場合が多いため */
+            }
+
+            .experiment-grid {
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .card {
+                padding: 24px;
+                border-radius: 16px;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+        
+        <!-- ヘッダー -->
+        <header>
+            <h1 class="header-logo">尚絅学院大学 2412A16 小川 悠人の<br>心理学実験室</h1>
+        </header>
+
+        <!-- 挨拶文・導入セクション -->
+        <section class="welcome-section">
+            <p class="welcome-text">
+                ご訪問ありがとうございます。以下の実験へのご協力をお願いいたします。<br class="desktop-only">
+                各実験は数分で終わります。スマートフォンからも参加可能です。
+            </p>
+        </section>
+
+        <!-- 実験リスト -->
+        <section class="experiment-grid">
+            
+            <!-- 実験 0 -->
+            <article class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-number">実験 0</span>
+                        <h2 class="card-title">はじめてのWebページ</h2>
+                    </div>
+                    <p class="card-description">
+                        第2回で作成した記念すべき「Hello World」のページです。基礎を振り返るための最初のステップです。
+                    </p>
+                </div>
+                <a href="hello_world.html" class="card-btn">Hello Worldを見る</a>
+            </article>
+
+            <!-- 実験 1 -->
+            <article class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-number">実験 1</span>
+                        <h2 class="card-title">ストループ課題</h2>
+                    </div>
+                    <p class="card-description">
+                        「文字の意味」と「文字の色」の干渉を調べる、簡単なキーボード入力 of テストです。（所要時間：約3分）
+                    </p>
+                </div>
+                <a href="stroop.html" class="card-btn">実験1に参加する</a>
+            </article>
+
+            <!-- 実験 2 -->
+            <article class="card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <span class="card-number">実験 2</span>
+                        <h2 class="card-title">ミュラー・リヤー錯視</h2>
+                    </div>
+                    <p class="card-description">
+                        図形の長さが違って見える錯覚を測る、スライダーを使った視覚のテストです。（所要時間：約2分）
+                    </p>
+                </div>
+                <a href="muller_lyer_final.html" class="card-btn">実験2に参加する</a>
+            </article>
+
+        </section>
+
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; 2026 尚絅学院大学 2412A16 小川 悠人. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
